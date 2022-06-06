@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200&display=swap" rel="stylesheet">
-    <!--<script src="https://cdn.tailwindcss.com"></script>-->
     <link rel="stylesheet" type="text/css" href="{{asset('css/estilos.css')}}">
     <title>Mi pequeño Blog - @yield('titulo')</title>
 </head>
@@ -21,7 +20,28 @@
     <div class="row justify-content-center" id="cabecera">    
         <h1><img class="img" src="{{asset('img/logo.png')}}">Tarea Online 4</h1>
     </div>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('entradas.mostrarEntradas')}}">Listar entradas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('entradas.mostrarEntradas')}}">Nueva entrada</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('usuarios.mostrarUsuarios')}}">Listar usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('usuarios.mostrarNuevo')}}">Nuevo usuario</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Cerrar sesión</a>
+        </li>
+    </ul>
     <br/>
+    <div class="row justify-content-center">
+        <h3>@yield('h')</h3>
+    </div>
+    <br>
     @yield('content')
 </body>
 </html>

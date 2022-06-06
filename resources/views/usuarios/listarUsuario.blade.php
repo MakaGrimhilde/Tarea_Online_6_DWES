@@ -2,6 +2,8 @@
 
 @section('titulo', 'Detalle')
 
+@section('h', 'Detalle')
+
 @section('content')
     <div class="row justify-content-center">
         <div class="col-sm-8">
@@ -19,10 +21,10 @@
                     <td>{{$usuario->nombre}}</td>
                     <td>{{$usuario->apellidos}}</td>
                     <td>{{$usuario->email}}</td>
-                    <td><img src="../../public/imagenes/{{$usuario->imagen}}" width="50"></td>
-                    <td><a href="">Editar</a>
-                        <a href="">Eliminar</a>
-                        <a href="{{route('mostrarUsuario', $usuario->id)}}">Detalle</a></td>
+                    <td><img src="../../imagenes/{{$usuario->imagen}}" width="50"></td>
+                    <td><a href="{{route('usuarios.edit', $usuario->id)}}">Editar</a>
+                        <a href="{{route('usuarios.destroy', $usuario->id)}}">Eliminar</a>
+                        <a href="{{route('usuarios.mostrarUsuario', $usuario->id)}}">Detalle</a></td>
                     </td>
                 </tr>         
             </table>

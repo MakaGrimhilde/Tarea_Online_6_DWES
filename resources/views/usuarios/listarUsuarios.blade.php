@@ -2,6 +2,8 @@
 
 @section('titulo', 'Lista de usuarios')
 
+@section('h', 'Lista de usuarios')
+
 @section('content')
     <div class="row justify-content-center">
         <div class="col-sm-8">
@@ -22,12 +24,12 @@
                         <td>{{$u->apellidos}}</td>
                         <td>{{$u->email}}</td>
                         <td><img src="../../public/imagenes/{{$u->imagen}}" width="50"></td>
-                        <td><a href="">Editar</a>
-                        <a href="">Eliminar</a>
-                        <a href="{{route('mostrarUsuario', $u->id)}}">Detalle</a></td>
+                        <td><a href="{{route('usuarios.edit', $u->id)}}">Editar</a>
+                        <a href="{{route('usuarios.destroy', $u->id)}}">Eliminar</a>
+                        <a href="{{route('usuarios.mostrarUsuario', $u->id)}}">Detalle</a></td>
                     </tr>
                 @endforeach
-                </table>
+            </table>
         </div>
     </div>
     <br>
