@@ -14,7 +14,7 @@
                     <th>Título</th>
                     <th>Imagen</th>
                     <th>Descripcion</th>
-                    <th>Fecha de publicación</th>
+                    <th>@sortablelink('created_at', 'Fecha de publicación')</th>
                     <th>Operaciones</th>
                 </tr>
                 
@@ -27,8 +27,8 @@
                         <td>{{$e->descripcion}}</td>
                         <td>{{$e->created_at}}</td>
                         <td><a href="">Editar</a>
-                        <a href="">Eliminar</a>
-                        <a href="">Detalle</a></td>
+                        <a href="{{route('entradas.destroy', $e->id)}}">Eliminar</a>
+                        <a href="{{route('entradas.show', $e->id)}}">Detalle</a></td>
                     </tr>
                 @endforeach
             </table>
@@ -36,6 +36,6 @@
     </div>
     <br>
     <div class="row justify-content-center">
-        {{$entradas->links()}}
+        {!! $entradas->appends(Request::except('page'))->render() !!}
     </div>     
 @endsection

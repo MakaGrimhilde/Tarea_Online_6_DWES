@@ -1,8 +1,8 @@
 @extends('layout.plantilla')
 
-@section('titulo', 'Nueva entrada')
+@section('titulo', 'Editar entrada')
 
-@section('h', 'Escribir una nueva entrada')
+@section('h', 'Editar entrada')
 
 @section('content')
     <script>
@@ -15,17 +15,19 @@
 
             <div class="row">
                 <label for="titulo">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" value="{{old('titulo')}}"/>  
+                <input type="text" class="form-control" id="titulo" name="titulo" 
+                value="{{old('titulo', $entrada->titulo)}}"/>  
             </div>
             <br/>
             <div class="row">
                 <label for="descripcion">Descripción</label>
             </div>
-            <textarea class="ckeditor" id="descripcion" name="descripcion">{{old('descripcion')}}</textarea>
+            <textarea class="ckeditor" id="descripcion" name="descripcion">{{old('descripcion', $entrada->descripcion)}}</textarea>
             <br/>
             <div class="row">
                 <label for="imagen">Imagen</label>
-                <input type="file" class="form-control-file" id="imagen" name="imagen"/>  
+                <input type="file" class="form-control-file" id="imagen" name="imagen"/>
+                <td><img src="../../public/imagenes/{{$entrada->imagen}}" width="50"></td>  
             </div>
             <br/>
             <!--botones para enviar los datos recogidos en el formulario y para limpiar los campos-->

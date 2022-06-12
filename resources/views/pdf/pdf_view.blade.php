@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,34 +15,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200&display=swap" rel="stylesheet">
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('css/estilos.css')}}">
-    <title>Mi pequeño Blog - @yield('titulo')</title>
+    <title>Mi pequeño Blog - Lista de usuarios (Vista PDF)</title>
 </head>
 <body>
-    <div class="row justify-content-center" id="cabecera">    
-        <h1><img class="img" src="{{asset('img/logo.png')}}">Tarea Online 4</h1>
-    </div>
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('entradas.index')}}">Listar entradas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('entradas.create')}}">Nueva entrada</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('usuarios.index')}}">Listar usuarios</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('usuarios.create')}}">Nuevo usuario</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Cerrar sesión</a>
-        </li>
-    </ul>
-    <br/>
+    <br>
     <div class="row justify-content-center">
-        <h3>@yield('h')</h3>
+        <div class="col-sm-8">
+            <table class="table table-striped text-center">
+                <tr>
+                    <th>Nick</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Imagen</th>
+                </tr>
+                
+                @foreach ($usuarios as $u)
+                    <tr>
+                        <td>{{$u->nick}}</td>
+                        <td>{{$u->nombre}}</td>
+                        <td>{{$u->apellidos}}</td>
+                        <td>{{$u->email}}</td>
+                        <td><img src="../../blog/imagenes/{{$u->imagen}}" width="50"></td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
     </div>
     <br>
-    @yield('content')
+    <div class="row justify-content-center">
+        <a href="{{route('pdf.convert')}}" class="btn btn-primary">Guardar PDF</a>
+    </div>
 </body>
-</html>
