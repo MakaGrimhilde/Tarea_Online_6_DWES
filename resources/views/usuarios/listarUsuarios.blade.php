@@ -23,7 +23,8 @@
                         <td>{{$u->email}}</td>
                         <td><img src="../../public/blog/imagenes/{{$u->imagen}}" width="50"></td>
                         <td><a href="{{route('usuarios.edit', $u->id)}}">Editar</a>
-                        <a href="{{route('usuarios.destroy', $u->id)}}">Eliminar</a>
+                        <a href="{{route('usuarios.destroy', $u->id)}}" 
+                        onclick="return confirm('Está a punto de eliminar al usuario {{$u->nick}}, ¿está seguro?')">Eliminar</a>
                         <a href="{{route('usuarios.show', $u->id)}}">Detalle</a></td>
                     </tr>
                 @endforeach
@@ -36,6 +37,7 @@
     </div>
     <br>
     <div class="row justify-content-center">
-        <a href="{{route('pdf.view')}}" class="btn btn-primary">Convertir a PDF</a>
+        <a href="{{route('pdf.view')}}" class="btn btn-primary">Convertir a PDF</a>&nbsp;
+        <a href="{{route('excel.excel')}}" class="btn btn-primary">Importar/Exportar Excel</a>
     </div>     
 @endsection

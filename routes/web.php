@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\EntradasController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\LogsController;
 use App\Mail\ContactoMailable;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/', [LoginController::class, 'authenticate'])->name('login');
 
+//RUTA PÁGINA DE INICIO
 Route::get('inicio', function (){
     return view('inicio');
 })->name('inicio');
@@ -60,4 +63,18 @@ Route::get('blog/contacto', function (){
 
     return redirect()->route('inicio');
 });
+
+//BUSCADOR
+Route::get('blog/busqueda', [EntradasController::class, 'buscar'])->name('entradas.buscar');
+
+//EXCEL
+Route::get('blog/excel/view', [ExcelController::class, 'index'])->name('excel.excel');
+Route::post('blog/excel/importar', [ExcelController::class, 'importar'])->name('excel.importar');
+Route::get('blog/excel/exportar', [ExcelController::class, 'exportar'])->name('excel.exportar');
+
+//LOGS
+Route::get('blog/logs', [LogsController::class, 'index'])->name('logs.logs');
+Route::get('blog/logs/{log}', [LogsController::class, 'destroy'])->name('logs.destroy');
+Route::get('logs/view', [LogsController::class, 'pdfView'])->name('logs.view');
+Route::get('logs/convert', [LogsController::class, 'pdfGeneration'])->name('logs.convert');
 

@@ -15,7 +15,7 @@ class CreateEntradasTable extends Migration
     {
         Schema::create('entradas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_id')->constrained('usuarios');
+            $table->foreignId('usuario_id')->constrained('users');
             $table->foreignId('categoria_id')->constrained('categorias');
             $table->string('titulo');
             $table->string('imagen');

@@ -23,7 +23,8 @@
                     <td>{{$usuario->email}}</td>
                     <td><img src="../../blog/imagenes/{{$usuario->imagen}}" width="50"></td>
                     <td><a href="{{route('usuarios.edit', $usuario->id)}}">Editar</a>
-                        <a href="{{route('usuarios.destroy', $usuario->id)}}">Eliminar</a>
+                        <a href="{{route('usuarios.destroy', $usuario->id)}}" 
+                        onclick="return confirm('Está a punto de eliminar al usuario {{$usuario->nick}}, ¿está seguro?')">Eliminar</a>
                         <a href="{{route('usuarios.show', $usuario->id)}}">Detalle</a></td>
                     </td>
                 </tr>         

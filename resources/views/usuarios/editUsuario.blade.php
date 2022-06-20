@@ -27,22 +27,6 @@
                     @endif  
                 </div>
                 <div class="col-sm">
-                    <!--cuadro de texto para recoger la contraseña-->
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" 
-                    value="{{old('password', $usuario->password)}}"/>
-                    
-                    @if($errors->any())
-                        <br>
-                        @error('password')
-                            <div class="alert alert-danger">{{$message}}</div>
-                        @enderror 
-                    @endif  
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-sm">
                     <!--cuadro de texto para recoger el nombre-->
                     <label for="email">Email</label>
                     <input type="text" class="form-control" id="email" name="email" value="{{old('email', $usuario->email)}}"
@@ -55,6 +39,9 @@
                         @enderror 
                     @endif  
                 </div>
+            </div>
+            <br/>
+            <div class="row">
                 <div class="col-sm">
                     <!--cuadro de texto para recoger la contraseña-->
                     <label for="imagen">Imagen</label>

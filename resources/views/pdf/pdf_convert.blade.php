@@ -42,7 +42,6 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Email</th>
-                    <th>Imagen</th>
                 </tr>
                 
                 @foreach ($usuarios as $u)
@@ -51,7 +50,6 @@
                         <td>{{$u->nombre}}</td>
                         <td>{{$u->apellidos}}</td>
                         <td>{{$u->email}}</td>
-                        <td><img src="../../blog/imagenes/{{$u->imagen}}" width="50"></td>
                     </tr>
                 @endforeach
             </table>

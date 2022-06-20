@@ -23,11 +23,12 @@
                         <td>{{$e->categoria_id}}</td>
                         <td>{{$e->usuario_id}}</td>
                         <td>{{$e->titulo}}</td>
-                        <td><img src="../../public/imagenes/{{$e->imagen}}" width="50"></td>
+                        <td><img src="../../public/blog/imagenes/{{$e->imagen}}" width="50"></td>
                         <td>{{$e->descripcion}}</td>
                         <td>{{$e->created_at}}</td>
-                        <td><a href="">Editar</a>
-                        <a href="{{route('entradas.destroy', $e->id)}}">Eliminar</a>
+                        <td><a href="{{route('entradas.edit', $e->id)}}">Editar</a>
+                        <a href="{{route('entradas.destroy', $e->id)}}" 
+                        onclick="return confirm('Está a punto de eliminar la entrada: {{$e->titulo}}, ¿está seguro?')">Eliminar</a>
                         <a href="{{route('entradas.show', $e->id)}}">Detalle</a></td>
                     </tr>
                 @endforeach

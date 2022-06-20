@@ -11,13 +11,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200&display=swap" rel="stylesheet">
-    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('css/estilos.css')}}">
     <title>Mi pequeño Blog - @yield('titulo')</title>
+    <style type="text/css">
+        #title {color:khaki;}
+    </style>
 </head>
 <body>
     <div class="row justify-content-center" id="cabecera">    
-        <h1><img class="img" src="{{asset('img/logo.png')}}">Tarea Online 4</h1>
+        <h1><img class="img" src="{{asset('img/logo.png')}}"><a id="title" href="{{route('inicio')}}">Tarea Online 4</a></h1>
     </div>
     <ul class="nav">
         <li class="nav-item">
@@ -31,9 +33,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('usuarios.create')}}">Nuevo usuario</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Cerrar sesión</a>
         </li>
     </ul>
     <br/>

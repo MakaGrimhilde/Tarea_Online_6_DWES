@@ -21,11 +21,12 @@
                     <td>{{$entrada->categoria_id}}</td>
                         <td>{{$entrada->usuario_id}}</td>
                         <td>{{$entrada->titulo}}</td>
-                        <td><img src="../../public/imagenes/{{$entrada->imagen}}" width="50"></td>
+                        <td><img src="../../blog/imagenes/{{$entrada->imagen}}" width="200" height="250"></td>
                         <td>{{$entrada->descripcion}}</td>
                         <td>{{$entrada->created_at}}</td>
                     <td><a href="{{route('entradas.edit', $entrada->id)}}">Editar</a>
-                        <a href="{{route('entradas.destroy', $entrada->id)}}">Eliminar</a>
+                        <a href="{{route('entradas.destroy', $entrada->id)}}" 
+                        onclick="return confirm('Está a punto de eliminar la entrada: {{$entrada->titulo}}, ¿está seguro?')">Eliminar</a>
                         <a href="{{route('entradas.show', $entrada->id)}}">Detalle</a></td>
                     </td>
                 </tr>         

@@ -2,78 +2,146 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidacionRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UsuariosController extends Controller
 {
 
-    public function mostrarNuevo(){
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $usuarios = User::paginate(3);
 
+        return view('usuarios.listarUsuarios', compact('usuarios'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
         return view('usuarios.insertUsuario');
     }
 
-    public function insert(Request $datos){
-
-        $usuario = new Usuario();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ValidacionRequest $datos)
+    {
+        $usuario = new User();
 
         $usuario->nick = $datos->nick;
         $usuario->nombre = $datos->nombre;
         $usuario->apellidos = $datos->apellidos;
         $usuario->email = $datos->email;
-        $usuario->password = sha1($datos->password);
+        $usuario->password = Hash::make($datos->password);
         $imgNombre = $datos->imagen->getClientOriginalName();
-        $datos->imagen->move('imagenes', $imgNombre);
+        $datos->imagen->move('blog/imagenes', $imgNombre);
         $usuario->imagen = $imgNombre;
 
         $usuario->save();
 
-        return redirect()->route('usuarios.mostrarUsuarios');
+        //Inserción de la acción en la tabla logs
+        $accion = ['accion' => 'Registro de nuevo usuario: '.$usuario->nick,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()];
+        DB::table('logs')->insert($accion);
 
+        return redirect()->route('usuarios.index');
     }
 
-    public function mostrarUsuarios(){
-
-        $usuarios = Usuario::paginate(3);
-
-        return view('usuarios.listarUsuarios', compact('usuarios'));
-    }
-
-    public function mostrarUsuario($id){
-
-        $usuario = Usuario::findorFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $usuario = User::findorFail($id);
 
         return view('usuarios.listarUsuario', compact('usuario'));
     }
 
-    public function edit($id){
-
-        $usuario = Usuario::findorFail($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $usuario = User::findorFail($id);
 
         return view('usuarios.editUsuario', compact('usuario'));
-
     }
 
-    public function update(Usuario $usuario, Request $datosNuevos){
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $datosNuevos, $usuario)
+    {
+        $datosNuevos->validate([
+            'nick' => ['max:20', 'required'],
+            'email' => ['email', 'required'],
+            'imagen' => ['required', 'image']
+        ]);
+
+        $usuario = User::findorFail($usuario);
 
         $usuario->nick = $datosNuevos->nick;
-        $usuario->password = sha1($datosNuevos->password);
         $usuario->email = $datosNuevos->email;
         $imgNomNueva = $datosNuevos->imagen->getClientOriginalName();
-        $datosNuevos->imagen->move('imagenes', $imgNomNueva);
+        $datosNuevos->imagen->move('blog/imagenes', $imgNomNueva);
         $usuario->imagen = $imgNomNueva;
 
         $usuario->save();
-        return redirect()->route('usuarios.mostrarUsuarios');
 
+        //Inserción de la acción en la tabla logs
+        $accion = ['accion' => 'Edición de datos del usuario: '.$usuario->nick,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()];
+        DB::table('logs')->insert($accion);
+
+        return redirect()->route('usuarios.index');
     }
 
-    public function destroy($id){
-
-        $usuario = Usuario::findorFail($id);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $usuario = User::findorFail($id);
         $usuario->delete();
 
-        return redirect()->route('usuarios.mostrarUsuarios');
-        
+        //Inserción de la acción en la tabla logs
+        $accion = ['accion' => 'Eliminado el usuario: '.$usuario->nick,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()];
+        DB::table('logs')->insert($accion);
+
+        return redirect()->route('usuarios.index');
     }
+
 }
